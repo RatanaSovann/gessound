@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gessound — Hand Tracking</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="stage">
+    <video id="webcam" autoplay playsinline muted></video>
+    <canvas id="overlay"></canvas>
+    <button id="audioGate">Click to enable audio</button>
+  </div>
+  <div id="hud">
+    <select id="mode">
+      <option value="melody" selected>Melody</option>
+      <option value="chord">Chord</option>
+    </select>
+    <select id="scale">
+      <option value="major" selected>Major</option>
+      <option value="minor">Minor</option>
+      <option value="majorPentatonic">Major Pentatonic</option>
+      <option value="minorPentatonic">Minor Pentatonic</option>
+    </select>
+    <select id="wave">
+      <option value="sawtooth" selected>Sawtooth</option>
+      <option value="sine">Sine</option>
+      <option value="triangle">Triangle</option>
+      <option value="square">Square</option>
+    </select>
+    <select id="range">
+      <option value="1">1 oct</option>
+      <option value="2" selected>2 oct</option>
+      <option value="3">3 oct</option>
+    </select>
+    <span id="status">Requesting camera…</span>
+    <span id="note"></span>
+    <span id="fps"></span>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

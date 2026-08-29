@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #111318;
+  color: #e8e8e8;
+  font-family: system-ui, sans-serif;
+}
+
+#stage {
+  position: relative;
+  width: 960px;
+  max-width: 95vw;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+}
+
+#webcam,
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(-1); /* mirror so it feels like a mirror, not a camera behind you */
+}
+
+#audioGate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #e8e8e8;
+  font-size: 18px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#audioGate.hidden {
+  display: none;
+}
+
+#hud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  font-size: 14px;
+  color: #9aa0a6;
+}
+
+#fps {
+  font-variant-numeric: tabular-nums;
+}
+
+#note {
+  color: #4fd1c5;
+  font-weight: 600;
+}
+
+#mode,
+#scale,
+#wave,
+#range {
+  background: #1c1f26;
+  color: #e8e8e8;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font: inherit;
+}
