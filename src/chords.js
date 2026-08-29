@@ -28,8 +28,8 @@ export const QUALITIES = [
   { name: "aug", intervals: [0, 4, 8] },
 ];
 
-export function chordFrequencies(rootIndex, qualityIndex) {
+export function chordFrequencies(rootIndex, qualityIndex, octaveOffset = 0) {
   const root = ROOTS[rootIndex];
   const quality = QUALITIES[qualityIndex];
-  return quality.intervals.map((interval) => midiToFreq(root.midi + interval));
+  return quality.intervals.map((interval) => midiToFreq(root.midi + interval + octaveOffset));
 }

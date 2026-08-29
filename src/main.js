@@ -200,6 +200,11 @@ function drawWheel(wheel, labels, selectedIndex, offLabel = "OFF") {
 
 const DEFAULT_QUALITY_INDEX = QUALITIES.findIndex((q) => q.name === "maj");
 
+// Range's "2 oct" is the original/unshifted chord register; 1 and 3 shift a full octave down/up.
+function chordOctaveOffset() {
+  return (Number(rangeSelect.value) - 2) * 12;
+}
+
 function drawChordWheels(rootIndex, qualityIndex) {
   if (!wheelConfigs) return;
   drawWheel(wheelConfigs.root, ROOT_LABELS, rootIndex);
@@ -209,6 +214,7 @@ function drawChordWheels(rootIndex, qualityIndex) {
 let rootIndex = null;
 let qualityIndex = null;
 let soundingQuality = DEFAULT_QUALITY_INDEX;
+let soundingOctaveOffset = chordOctaveOffset();
 let chordActive = false;
 
 function updateChords(result) {
@@ -228,15 +234,18 @@ function updateChords(result) {
   // Quality wheel centered/absent defaults to "maj" rather than silence —
   // only an actual wedge pick overrides it, so a bare root already plays.
   const effectiveQuality = newQuality !== null ? newQuality : DEFAULT_QUALITY_INDEX;
-  const selectionChanged = newRoot !== rootIndex || effectiveQuality !== soundingQuality;
+  const octaveOffset = chordOctaveOffset();
+  const selectionChanged =
+    newRoot !== rootIndex || effectiveQuality !== soundingQuality || octaveOffset !== soundingOctaveOffset;
   rootIndex = newRoot;
   qualityIndex = newQuality;
   soundingQuality = effectiveQuality;
+  soundingOctaveOffset = octaveOffset;
 
   if (rootIndex !== null) {
     if (!chordActive || selectionChanged) {
       chordActive = true;
-      if (audioEnabled) playChord(chordFrequencies(rootIndex, soundingQuality));
+      if (audioEnabled) playChord(chordFrequencies(rootIndex, soundingQuality, soundingOctaveOffset));
     }
   } else if (chordActive) {
     chordActive = false;

@@ -10,9 +10,12 @@ let voice = null; // { osc, gain } — monophonic melody voice
 let chordVoices = []; // { osc, gain }[] — one per chord tone
 let currentWaveform = "sawtooth";
 
-// Takes effect for voices started after this call, not ones already sounding.
+// osc.type is live-mutable, so this also retimbres whatever's already sounding
+// (melody or chord) instead of only affecting voices started afterward.
 export function setWaveform(type) {
   currentWaveform = type;
+  if (voice) voice.osc.type = type;
+  for (const v of chordVoices) v.osc.type = type;
 }
 
 export function initAudio() {
